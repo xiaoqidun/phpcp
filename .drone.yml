@@ -1,3 +1,25 @@
 kind: pipeline
 type: docker
 name: default
+
+steps:
+    - name: build
+      pull: if-not-exists
+      image: alpine
+      commands:
+        - apk add zip
+        - zip -r phpcp.zip *
+    - name: upload
+      pull: if-not-exists
+      image: plugins/s3
+      settings:
+        bucket:
+          from_secret: minio_bucket
+        access_key:
+          from_secret: minio_access_key
+        secret_key:
+          from_secret: minio_secret_key
+        source: phpcp.zip
+        target: product
+        path_style: true
+        endpoint: https://minio.aite.xyz
