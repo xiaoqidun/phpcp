@@ -56,13 +56,7 @@
  * 电子邮箱:admin@aite.xyz
  * 电子邮箱:xiaoqidun@gmail.com
  * 组件下载:http://aite.me/7zrar.zip
- * 官方更新:http://aite.me/fileadmin.zip
- * ----------------
- * -->爱特文件专家版权
- * 爱特文件专家使用了Pclzip和Archive_Tar
- * http://www.phpconcept.net/pclzip
- * http://pear.php.net/package/Archive_Tar
- * 爱特文件专家除此库之外均为原创编码
+ * 官方更新:https://aite.xyz/product/fileadmin.zip
  * ----------------
  * 如果解压选项中出现了rar和7za二个选项且是linux系统
  * 你可能需要安装爱特文件专家的unrar和p7zip组件才能用
