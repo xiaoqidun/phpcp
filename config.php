@@ -48,15 +48,12 @@
  * 更多技巧等你使用,欢迎Bug的反馈与交流讨论
  * ----------------
  * -->爱特文件专家作者
- * 官方网站:aite.me
  * 官方网站:aite.xyz
  * 腾讯扣群:38181604
  * 腾讯扣扣:88966001
- * 腾讯扣扣:759234755
- * 电子邮箱:admin@aite.xyz
  * 电子邮箱:xiaoqidun@gmail.com
  * 组件下载:http://aite.me/7zrar.zip
- * 官方更新:https://aite.xyz/product/fileadmin.zip
+ * 自动构建:https://aite.xyz/product/fileadmin.zip
  * ----------------
  * 如果解压选项中出现了rar和7za二个选项且是linux系统
  * 你可能需要安装爱特文件专家的unrar和p7zip组件才能用
