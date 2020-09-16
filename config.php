@@ -52,12 +52,11 @@
  * 腾讯扣群:38181604
  * 腾讯扣扣:88966001
  * 电子邮箱:xiaoqidun@gmail.com
- * 组件下载:http://aite.me/7zrar.zip
+ * 组件下载:https://aite.xyz/product/7zrar.zip
  * 自动构建:https://aite.xyz/product/fileadmin.zip
  * ----------------
  * 如果解压选项中出现了rar和7za二个选项且是linux系统
  * 你可能需要安装爱特文件专家的unrar和p7zip组件才能用
- * unrar和p7zip（x64\x86\arm）http://aite.me/7zrar.zip
  * 借助这二个强大的组件你可以用爱特文件管理器解压任意格式压缩包
  * 可以用文件管理器的远程下载直接导入unrar和p7zip组件包,然后在线解压
  * 解压后有x64\x86\arm三个目录,一般空间用x86,一般安卓手机环境用arm组件
