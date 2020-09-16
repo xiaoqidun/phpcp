@@ -3,3 +3,6 @@
 
 ## 系统兼容
 PHP 5.3 + (需要session扩展支持)
+
+## 自动构建
+下载CI自动构建的程序压缩包: [fileadmin.zip](https://github.com/xiaoqidun/gitcz/releases)
