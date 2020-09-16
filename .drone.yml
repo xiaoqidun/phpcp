@@ -8,7 +8,7 @@ steps:
       image: alpine
       commands:
         - apk add zip
-        - zip -r phpcp.zip *
+        - zip -r fileadmin.zip *
     - name: upload
       pull: if-not-exists
       image: plugins/s3
@@ -19,7 +19,7 @@ steps:
           from_secret: minio_access_key
         secret_key:
           from_secret: minio_secret_key
-        source: phpcp.zip
+        source: fileadmin.zip
         target: product
         path_style: true
         endpoint: https://minio.aite.xyz
