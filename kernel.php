@@ -4,14 +4,18 @@ class filesystem
 {
     private $path = null;
 
-    function __construct()
+    public function __construct()
     {
-        if (func_num_args() > 0) $this->path = func_get_arg(0);
+        if (func_num_args() > 0) {
+            $this->path = func_get_arg(0);
+        }
     }
 
-    function chmod()
+    public function chmod()
     {
-        if (!function_exists("chmod") || !file_exists("perms.php")) return false;
+        if (!function_exists("chmod")) {
+            return false;
+        }
         if (func_num_args() == 3) {
             $path = $this->path;
             $dirperms = func_get_arg(0);
@@ -25,22 +29,25 @@ class filesystem
         } else {
             return false;
         }
-        if (!file_exists($path)) return false;
-        require "perms.php";
-        if (!isset($perms["$dirperms"]) || !isset($perms["$fileperms"])) return false;
-        if (!is_dir($path)) return chmod($path, $perms["$fileperms"]);
-        if (!$recursive || !($dh = opendir($path))) return chmod($path, $perms["$dirperms"]);
+        if (!file_exists($path)) {
+            return false;
+        }
+        if (!is_dir($path)) {
+            return chmod($path, octdec($fileperms));
+        }
+        if (!$recursive || !($dh = opendir($path))) {
+            return chmod($path, octdec($dirperms));
+        }
         while (($entry = readdir($dh)) !== false) {
             if ($entry != "." && $entry != "..") {
                 $this->chmod($path . "/" . $entry, $dirperms, $fileperms, $recursive);
             }
         }
         closedir($dh);
-        return chmod($path, $perms["$dirperms"]);
-
+        return chmod($path, octdec($dirperms));
     }
 
-    function chpath()
+    public function chpath()
     {
         if (func_num_args() < 1) {
             return false;
@@ -49,14 +56,15 @@ class filesystem
         }
     }
 
-    function cppath()
+    public function cppath()
     {
         if (func_num_args() == 1) {
             $path = $this->path;
             $topath = func_get_arg(0);
         } elseif (func_num_args() == 2) {
             $path = func_get_arg(1);
-            $topath = func_get_arg(0);;
+            $topath = func_get_arg(0);
+            ;
         } else {
             return false;
         }
@@ -67,7 +75,9 @@ class filesystem
         } elseif (!mkdir($topath, 0755, true)) {
             return false;
         }
-        if (!($dh = opendir($path))) return false;
+        if (!($dh = opendir($path))) {
+            return false;
+        }
         while (($entry = readdir($dh)) !== false) {
             if ($entry != "." && $entry != "..") {
                 $this->cppath($topath . "/" . $entry, $path . "/" . $entry);
@@ -77,7 +87,7 @@ class filesystem
         return true;
     }
 
-    function rmpath()
+    public function rmpath()
     {
         if (func_num_args() > 0) {
             $path = func_get_arg(0);
@@ -91,7 +101,9 @@ class filesystem
         } elseif (!is_dir($path)) {
             return unlink($path);
         }
-        if (!($dh = opendir($path))) return false;
+        if (!($dh = opendir($path))) {
+            return false;
+        }
         while (($entry = readdir($dh)) !== false) {
             if ($entry != "." && $entry != "..") {
                 $this->rmpath($path . "/" . $entry);
@@ -100,7 +112,7 @@ class filesystem
         return rmdir($path);
     }
 
-    function getpath()
+    public function getpath()
     {
         if (func_num_args() > 0) {
             $path = func_get_arg(0);
@@ -109,7 +121,9 @@ class filesystem
         }
         if (is_dir($path)) {
             $fs = array(array(), array(), array());
-            if (!($dh = opendir($path))) return false;
+            if (!($dh = opendir($path))) {
+                return false;
+            }
             while (($entry = readdir($dh)) !== false) {
                 if ($entry != "." && $entry != "..") {
                     if (is_dir($entry = ___realpath($path . "/" . $entry))) {
@@ -124,10 +138,18 @@ class filesystem
                 }
             }
             closedir($dh);
-            if ((count($fs, 1) - 3) < 1) return null;
-            if (count($fs[0]) > 0) usort($fs[0], "___sortcmp");
-            if (count($fs[1]) > 0) usort($fs[1], "___sortcmp");
-            if (count($fs[2]) > 0) usort($fs[2], "___sortcmp");
+            if ((count($fs, 1) - 3) < 1) {
+                return null;
+            }
+            if (count($fs[0]) > 0) {
+                usort($fs[0], "___sortcmp");
+            }
+            if (count($fs[1]) > 0) {
+                usort($fs[1], "___sortcmp");
+            }
+            if (count($fs[2]) > 0) {
+                usort($fs[2], "___sortcmp");
+            }
             return $fs;
         } elseif (file_exists($path)) {
             if (!($fs = stat($path))) {
@@ -140,9 +162,11 @@ class filesystem
         }
     }
 
-    function getfinfo()
+    public function getfinfo()
     {
-        if (!function_exists("finfo_open")) return false;
+        if (!function_exists("finfo_open")) {
+            return false;
+        }
         $finfo = finfo_open();
         if (func_num_args() > 0) {
             return finfo_file($finfo, func_get_arg(0));
@@ -150,9 +174,11 @@ class filesystem
         return finfo_file($finfo, $this->path);
     }
 
-    function getperms()
+    public function getperms()
     {
-        if (!function_exists("fileperms")) return false;
+        if (!function_exists("fileperms")) {
+            return false;
+        }
         if (func_num_args() > 0) {
             $path = func_get_arg(0);
             if (($perms = fileperms($path)) === false) {
@@ -168,5 +194,3 @@ class filesystem
         }
     }
 }
-
-?>
