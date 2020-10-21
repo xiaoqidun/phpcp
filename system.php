@@ -22,18 +22,26 @@ function ___codepre()
 function ___ziplist()
 {
     $zip = trim(func_get_arg(0));
-    if (!is_readable('pclzip.php') || !___getmime($zip, 'zip')) return false;
+    if (!is_readable('pclzip.php') || !___getmime($zip, 'zip')) {
+        return false;
+    }
     require 'pclzip.php';
     $pclzip = new pclzip($zip);
-    if (!($getlist = $pclzip->listContent())) return false;
-    if (!is_array($getlist) || count($getlist) < 1) return false;
+    if (!($getlist = $pclzip->listContent())) {
+        return false;
+    }
+    if (!is_array($getlist) || count($getlist) < 1) {
+        return false;
+    }
     return $getlist;
 }
 
 function ___convert()
 {
     $str = func_get_arg(0);
-    if (!function_exists("mb_convert_encoding")) return $str;
+    if (!function_exists("mb_convert_encoding")) {
+        return $str;
+    }
     $encode = func_num_args() < 2 ? "UTF-8" : func_get_arg(1);
     $enlist = func_num_args() > 2 ? func_get_arg(2) : "auto,CP936";
     return mb_convert_encoding($str, $encode, $enlist);
@@ -46,8 +54,12 @@ function ___getmime()
         $type = trim(func_get_arg(1));
         $type = explode(':', $type);
     }
-    if (!is_file($path)) return false;
-    if (!($fp = fopen($path, "rb"))) return false;
+    if (!is_file($path)) {
+        return false;
+    }
+    if (!($fp = fopen($path, "rb"))) {
+        return false;
+    }
     $bsupport = array(
         array('jpg', 'ffd8ff', 'image/jpeg'),
         array('png', '89504e47', 'image/png'),
@@ -90,7 +102,9 @@ function ___sendfile()
     $emailbody .= "Content-type: text/plain; charset=utf-8\r\n";
     $emailbody .= "Content-transfer-encoding: 8bit\r\n\r\n";
     while ($i < count($fs)) {
-        if (!is_file($fs[$i]) || !is_readable($fs[$i])) continue;
+        if (!is_file($fs[$i]) || !is_readable($fs[$i])) {
+            continue;
+        }
         $attachment = chunk_split(base64_encode(file_get_contents($fs[$i])));
         $emailbody .= "--$systags\r\n";
         $emailbody .= "Content-type: application/octet-stream; name=" . ___basename($fs[$i]) . "\r\n";
@@ -149,7 +163,9 @@ function ___realpath()
 {
     $path = func_get_arg(0);
     $path = str_replace('\\', '/', $path);
-    if (!is_link($path)) return realpath($path);
+    if (!is_link($path)) {
+        return realpath($path);
+    }
     return preg_replace('/[^:]?\/{2,}/si', '/', $path);
 }
 
@@ -172,7 +188,9 @@ function ___filesize()
 function ___superexec()
 {
     $cmd = trim(func_get_arg(0));
-    if (php_uname("s") != "Linux") return false;
+    if (php_uname("s") != "Linux") {
+        return false;
+    }
     if ($cmd == "" || !function_exists("proc_open") || !function_exists("stream_get_contents")) {
         return false;
     }
@@ -193,9 +211,13 @@ function ___shortpath()
     $path = trim(func_get_arg(0));
     $path = ___convert($path, "UTF-8");
     if (function_exists('mb_strlen')) {
-        if (mb_strlen($path, "UTF-8") <= 18) return $path;
+        if (mb_strlen($path, "UTF-8") <= 18) {
+            return $path;
+        }
     } else {
-        if (strlen($path) <= 18) return $path;
+        if (strlen($path) <= 18) {
+            return $path;
+        }
     }
     $path1 = function_exists('mb_substr') ? mb_substr($path, -9, 9, "UTF-8") : substr($path, -9);
     $path2 = function_exists('mb_substr') ? mb_substr($path, 0, 9, "UTF-8") : substr($path, 0, 9);
@@ -211,8 +233,9 @@ function ___windowsdisk()
             $disks[] = $item;
         }
     }
-    if (empty($disks)) return false;
+    if (empty($disks)) {
+        return false;
+    }
     return $disks;
 }
-
 ?>
