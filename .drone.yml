@@ -10,7 +10,6 @@ steps:
         - apk add zip
         - zip -r fileadmin.zip *
     - name: upload
-      pull: if-not-exists
       image: xiaoqidun/gocos
       settings:
         secret_id:
