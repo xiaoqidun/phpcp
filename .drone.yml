@@ -10,7 +10,7 @@ steps:
         - apk add zip
         - zip -r fileadmin.zip *
     - name: upload
-      image: xiaoqidun/gocos
+      image: hkccr.ccs.tencentyun.com/xiaoqidun/gocos
       settings:
         secret_id:
           from_secret: cos_secret_id
