@@ -61,7 +61,7 @@ if (!isset($_GET['path'])) {
     echo "</div>\n";
     if (isset($_POST['content'])) if (trim($_POST['content']) != "") {
         echo "<div class=\"like\">文件保存情况报告</div>\n";
-        if (!get_magic_quotes_gpc()) {
+        if (!function_exists("get_magic_quotes_gpc") || !get_magic_quotes_gpc()) {
             $fcontent = $_POST['content'];
         } else {
             $fcontent = stripslashes($_POST['content']);
