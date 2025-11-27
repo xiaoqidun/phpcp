@@ -5,7 +5,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v6
-        run: |
+      - run: |
           apt-get update && apt-get install -y zip && rm -rf /var/lib/apt/lists/*
           zip -r fileadmin.zip *
       - name: upload to cos
