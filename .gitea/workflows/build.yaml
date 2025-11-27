@@ -1,0 +1,18 @@
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: cn
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+        run: |
+          apt-get update && apt-get install -y zip && rm -rf /var/lib/apt/lists/*
+          zip -r fileadmin.zip *
+      - name: upload to cos
+        uses: docker://ccr.ccs.tencentyun.com/xiaoqidun/gocos
+        env:
+          PLUGIN_SECRET_ID: ${{secrets.cos_secret_id}}
+          PLUGIN_SECRET_KEY: ${{secrets.cos_secret_key}}
+          PLUGIN_BUCKET_URL: ${{secrets.cos_bucket_url}}
+          PLUGIN_SOURCE: fileadmin.zip
+          PLUGIN_TARGET: product
