@@ -10,7 +10,7 @@ jobs:
           apt-get update && apt-get install -y zip && rm -rf /var/lib/apt/lists/*
           zip -r fileadmin.zip *
       - name: upload to cos
-        uses: docker://ccr.ccs.tencentyun.com/xiaoqidun/gocos
+        uses: docker://ccr.ccs.tencentyun.com/xiaoqidun/gocos:latest
         env:
           PLUGIN_SECRET_ID: ${{secrets.cos_secret_id}}
           PLUGIN_SECRET_KEY: ${{secrets.cos_secret_key}}
